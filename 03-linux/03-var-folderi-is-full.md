@@ -24,8 +24,11 @@ This will show which directories inside `/var` are consuming the most space — 
 If `/var/log` is the culprit:
 
 ```bash
-sudo journalctl --vacuum-size=200M
-sudo rm -rf /var/log/*.gz /var/log/*.[0-9]
+sudo journalctl --vacuum-size=200M   (This command tells journalctl (which manages systemd journal logs to reduce the size of the logs to 200MB. It will delete the oldest logs until the total size of the journal logs is under 200MB.)
+
+sudo rm -rf /var/log/*.gz /var/log/*.[0-9]  (This command forcefully removes:
+All compressed log files (*.gz) in /var/log.
+All rotated log files (e.g., syslog.1, auth.log.2, etc.))
 ```
 
 Or truncate large log files:
